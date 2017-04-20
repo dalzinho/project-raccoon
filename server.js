@@ -1,5 +1,4 @@
 const express = require('express');
-// const router = express.Router();
 const app = express();
 const fs = require('fs');
 const path = require('path');
@@ -11,6 +10,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 app.get('/api/table', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
   res.sendFile(path.join(__dirname + '/site_scraper/leagueTable.json'));
 })
 

@@ -6,9 +6,6 @@ class App extends React.Component{
   return(
     <div>
     <div>
-      hello world!
-    </div>
-    <div>
     <TableContainer />
     </div>
     </div>
