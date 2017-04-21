@@ -11,7 +11,7 @@ if(process.env.NODE_ENV === 'production'){
 
 app.get('/api/table', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
-  res.sendFile(path.join(__dirname + '/site_scraper/json/leagueTable.json'));
+  res.sendFile(path.join(__dirname + '/scrapr/json/leagueTable.json'));
 })
 
 app.listen(app.get('port'), () => {
