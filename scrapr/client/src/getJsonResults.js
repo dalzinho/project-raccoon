@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
+const Fixture = require('./models/Fixture');
 
 const cachedHtml = "";
 
@@ -21,10 +22,22 @@ function createJsonFromHtml(data){
 
   var fixtureList = [];
 
-  $('table').each((i, table) => {
-    const date = $(this).children('th');
-    console.log(date.text());
-  })
+  $('div').each((index, element) => {
+    const divChildren = $(this).children();
+    const table = divChildren.eq(1).text();
+    console.log(table.html()); 
+    })
+  // $('table.th').each((i, elem) => {
+  //   const dateHeadings = elem.children();
+  //   console.log(dateHeadings);
+  //     var options = {
+  //       date: elem.children().text(),
+  //     }
+
+  // fixtureList.push(new Fixture(options));
+  // })
+
+  // console.log(fixtureList);
 
 
 }
