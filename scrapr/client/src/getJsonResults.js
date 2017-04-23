@@ -14,32 +14,37 @@ const getCachedHtml = (callback) => {
   })
 }
 
-function createJsonFromHtml(data){
+function setFixtureDate(data){
+  var fixtureList = [];
 
   $ = cheerio.load(data, {
     ignoreWhitespace: true,
   });
 
-  var fixtureList = [];
+  
 
-  $('div').each((index, element) => {
-    const divChildren = $(this).children();
-    const table = divChildren.eq(1).text();
-    console.log(table.html()); 
-    })
-  // $('table.th').each((i, elem) => {
-  //   const dateHeadings = elem.children();
-  //   console.log(dateHeadings);
-  //     var options = {
-  //       date: elem.children().text(),
-  //     }
+  $('th').each((i, elem) => {
+    const options = {};
+    options.date = elem.children[0].data
+    let fixture = new Fixture(options);
+    fixtureList.push(fixture);
+  })
+}
 
-  // fixtureList.push(new Fixture(options));
-  // })
+function createJsonFromHtml(data){
+  $ = cheerio.load(data);
+  $('table.result').each((i, elem) => {
+    const tableChildren = elem.children;
+    // writeToDisk(tableChildren.json());
+    console.log(tableChildren[0]);
+  })
+}
 
-  // console.log(fixtureList);
-
-
+function writeToDisk(data){
+  fs.writeFile(path.join('cheerioObject.json'), data, (error) =>{
+    if(error){ console.log('Error:', error)}
+      else {console.log('cheerio stuff successfully written to', __dirname)}
+  })
 }
 
 function app(){
