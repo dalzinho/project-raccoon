@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
-const Fixture = require('./models/Fixture');
+const Result = require('./models/Result');
 
 const cachedHtml = "";
 
@@ -47,16 +47,34 @@ function createJsonFromHtml(data){
 
   const aTable = $('.resultsmonth').children().eq(1);
 
+  let results = [];
   // go through remaining <tr>s
   aTable.find('tr').each((i, tr) => {
+    let date, league, homeTeam, homeGoals, awayGoals, awayTeam;
+
     const children = tr.children;
-    if(children.length === 3){
-      console.log(this);
+
+    if(children.length > 3){
+      league = children[1].children[0].data;
+      homeTeam = children[3].children[0].data;
+      homeGoals = children[5].children[0].data;
+      awayGoals = children[7].children[0].data;
+      awayTeam = children[9].children[0].data;
     }
 
-
+    let options = {
+      date: aTable.find('th').text(),
+      league: league,
+      homeTeam: homeTeam,
+      homeGoals: homeGoals,
+      awayGoals: awayGoals,
+      awayTeam: awayTeam
+    }
+    results.push(new Result(options));
   });
 
+
+  console.log(results);
   
 
   // use regex? to get the one containing Pollok
