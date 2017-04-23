@@ -14,24 +14,6 @@ const getCachedHtml = (callback) => {
   })
 }
 
-function setFixtureDate(data){
-  var fixtureList = [];
-
-  $ = cheerio.load(data, {
-    normalizeWhitespace: true,
-    xmlMode: true
-  });
-
-  
-
-  $('th').each((i, elem) => {
-    const options = {};
-    options.date = elem.children[0].data
-    let fixture = new Fixture(options);
-    fixtureList.push(fixture);
-  })
-}
-
 function createJsonFromHtml(data){
   $ = cheerio.load(data, {
     normalizeWhitespace: true,
@@ -45,13 +27,12 @@ function createJsonFromHtml(data){
   // each div has <h3> (to be ignored fttb)
   // element[1] of div is table
 
-  const aTable = $('.resultsmonth').children().eq(1);
-
   let results = [];
-  // go through remaining <tr>s
-  aTable.find('tr').each((i, tr) => {
-    let date, league, homeTeam, homeGoals, awayGoals, awayTeam;
 
+  $('.resultsmonth').children().find('tr').each((i, tr) => {
+
+    let date, league, homeTeam, homeGoals, awayGoals, awayTeam;
+    let options = {};
     const children = tr.children;
 
     if(children.length > 3){
@@ -60,10 +41,11 @@ function createJsonFromHtml(data){
       homeGoals = children[5].children[0].data;
       awayGoals = children[7].children[0].data;
       awayTeam = children[9].children[0].data;
+    } else if (children.length === 3){
+      options[date] = children[1].children[0].data;
     }
 
-    let options = {
-      date: aTable.find('th').text(),
+    options = {
       league: league,
       homeTeam: homeTeam,
       homeGoals: homeGoals,
@@ -72,10 +54,8 @@ function createJsonFromHtml(data){
     }
     results.push(new Result(options));
   });
-
-
-  console.log(results);
-  
+ 
+ console.log(results);
 
   // use regex? to get the one containing Pollok
 
@@ -85,7 +65,10 @@ function createJsonFromHtml(data){
 
   // refactor code for enumeration over all tables
 
-  // save that array to disk as results.json
+  // save that array to disk as results.json});
+
+  // go through remaining <tr>s
+    
 }
 
 function writeToDisk(data){
