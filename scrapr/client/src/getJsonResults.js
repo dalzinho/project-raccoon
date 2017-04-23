@@ -37,27 +37,27 @@ function createJsonFromHtml(data){
     normalizeWhitespace: true,
     xmlMode: true
   });
+
+  // const date = aTable.find('th').text();
+
   // get an example of one table
   // each table exists inside a div .resultsmonth
   // each div has <h3> (to be ignored fttb)
   // element[1] of div is table
 
   const aTable = $('.resultsmonth').children().eq(1);
-  // console.log('HTML of one table', aTable.html())
-
-  //find <th> inside it
-  // element[0] of table is <tr> containing <th>
-  // get text from <th> and assign it to date
-
-  const date = console.log('Date:', aTable.find('th').text());
 
   // go through remaining <tr>s
-  let array = aTable.find('tr').map((i, elem) => {
-    return 'hi';
-    })
-  }
+  aTable.find('tr').each((i, tr) => {
+    const children = tr.children;
+    if(children.length === 3){
+      console.log(this);
+    }
 
-  console.log(array);
+
+  });
+
+  
 
   // use regex? to get the one containing Pollok
 
@@ -68,13 +68,13 @@ function createJsonFromHtml(data){
   // refactor code for enumeration over all tables
 
   // save that array to disk as results.json
-
+}
 
 function writeToDisk(data){
   fs.writeFile(path.join('cheerioObject.json'), data, (error) =>{
     if(error){ console.log('Error:', error)}
       else {console.log('cheerio stuff successfully written to', __dirname)}
-  })
+    })
 }
 
 function app(){
