@@ -25,7 +25,14 @@ function createJsonFromHtml(data){
   let date, league, homeTeam, homeGoals, awayGoals, awayTeam;
 
   $('table').each((i, tbl) => {
-    date = ($(tbl).find('th').text());
+    dateElements = ($(tbl).find('th').text().split(' '));
+    dateElements[1] = dateElements[1].split('').reverse();
+    dateElements[1].splice(0, 2);
+    dateElements[1] = dateElements[1].reverse().join('');
+    dateElements.splice(0, 1);
+    dateElements = dateElements.join('-')
+
+    date = Date.parse(dateElements) / 1000 + (14 * 3600);
 
     $(tbl).children().each((i, rslt) => {
       if(rslt.children.length > 3){      
