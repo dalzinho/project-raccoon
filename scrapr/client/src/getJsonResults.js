@@ -24,37 +24,100 @@ function createJsonFromHtml(data){
   let options = {};
   let date, league, homeTeam, homeGoals, awayGoals, awayTeam;
 
-  $('.resultsmonth').each((i, div) => {
-    $('.result').each((i, table) => {
-        console.log(table.children[1].children[1].children[0].data);
-      $('tr').each((i, tr) => {
-        options[date] = 'date';
-        const children = tr.children;
+  // there are umpteen tables
+  // the first <tr> in the table is the date for all the fixtures below it, however many there are.
+  // the remaining <tr>s in the table describe one match result.
 
-        if(children.length > 3){
-          league = children[1].children[0].data;
-          homeTeam = children[3].children[0].data;
-          homeGoals = children[5].children[0].data;
-          awayGoals = children[7].children[0].data;
-          awayTeam = children[9].children[0].data;
-        }
+  // SO...
 
-        options = {
-          date: date,
-          league: league,
-          homeTeam: homeTeam,
-          homeGoals: homeGoals,
-          awayGoals: awayGoals,
-          awayTeam: awayTeam
-        }
+  // iterate through tables.
 
-        results.push(new Result(options));
+  $('table').each((i, tbl) => {
 
-      });
-    });
+  // hold the date as a 'global' variable for the table
+  date = ($(tbl).find('th').text());
+  // create a new result based on each <tr>
+  $(tbl).children().each((i, rslt) => {
+    if(rslt.children.length > 3){      
+
+      league = ($(rslt).children().eq(0).text());
+      homeTeam = ($(rslt).children().eq(1).text());
+      homeGoals = ($(rslt).children().eq(2).text());
+      awayGoals = ($(rslt).children().eq(3).text());
+      awayTeam = ($(rslt).children().eq(4).text());
+
+      options = {
+        date: date,
+        league: league,
+        homeTeam: homeTeam,
+        homeGoals: homeGoals,
+        awayGoals: awayGoals,
+        awayTeam: awayTeam
+      }
+
+  results.push(new Result(options));
+
+    }
   });
-  // console.log(results);
+
+  // add it to the array of results.
+
+})
+  
+
+
+
+  console.log(results);
+
+
+
+
+
 }
+
+
+
+
+  // $('.resultsmonth').each((i, div) => {
+  //   $(div).find('.result').each((i, tbl) => {
+  //     console.log("I'm a table!");
+  //     $('th').addClass('date');
+  //     date = $(tbl).find('.date').text()
+
+  //     $(tbl).find('tr').each((i, elem) => {
+  //       league = $(tbl).find('.league').text();
+  //       homeTeam = $(tbl).find('.hometeam').text();
+  //       homeGoals = $(tbl).find('.homegoals').text();
+  //       awayGoals = $(tbl).find('.awaygoals').text();
+  //       awayTeam = $(tbl).find('.awayteam').text();
+
+  //     });
+  //   })
+
+
+
+
+  // })
+
+
+
+
+      // if($(table).children().length === 3) date = ;
+        // if(this.length > 3){
+        //   league = children[1].children[0].data;
+        //   homeTeam = children[3].children[0].data;
+        //   homeGoals = children[5].children[0].data;
+        //   awayGoals = children[7].children[0].data;
+        //   awayTeam = children[9].children[0].data;
+        // }
+
+
+
+
+
+
+
+
 
 
 
