@@ -16,7 +16,7 @@ app.get('/api/table', (req, res) => {
 
 app.get('/api/results', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
-  res.sendFile(path.join(__dirname + '/scrapr/json/allResults.json'));
+  res.sendFile(path.join(__dirname + '/scrapr/json/lokResults.json'));
 })
 
 app.listen(app.get('port'), () => {
