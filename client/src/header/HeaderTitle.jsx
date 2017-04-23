@@ -3,7 +3,7 @@ import React from 'react';
 class HeaderTitle extends React.Component{
 	render(){
 		return(
-		<div className='page-title'>
+		<div id='page-title'>
 		Pollok Football Club
 		</div>
 		)

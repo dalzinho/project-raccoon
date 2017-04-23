@@ -7,10 +7,7 @@ class App extends React.Component{
   return(
     <div>
     <div>
-    <div>
     	<HeaderContainer />
-    </div>
-    <TableContainer />
     </div>
     </div>
     )
