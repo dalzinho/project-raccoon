@@ -18,7 +18,8 @@ function setFixtureDate(data){
   var fixtureList = [];
 
   $ = cheerio.load(data, {
-    ignoreWhitespace: true,
+    normalizeWhitespace: true,
+    xmlMode: true
   });
 
   
@@ -32,13 +33,42 @@ function setFixtureDate(data){
 }
 
 function createJsonFromHtml(data){
-  $ = cheerio.load(data);
-  $('table.result').each((i, elem) => {
-    const tableChildren = elem.children;
-    // writeToDisk(tableChildren.json());
-    console.log(tableChildren[0]);
-  })
-}
+  $ = cheerio.load(data, {
+    normalizeWhitespace: true,
+    xmlMode: true
+  });
+  // get an example of one table
+  // each table exists inside a div .resultsmonth
+  // each div has <h3> (to be ignored fttb)
+  // element[1] of div is table
+
+  const aTable = $('.resultsmonth').children().eq(1);
+  // console.log('HTML of one table', aTable.html())
+
+  //find <th> inside it
+  // element[0] of table is <tr> containing <th>
+  // get text from <th> and assign it to date
+
+  const date = console.log('Date:', aTable.find('th').text());
+
+  // go through remaining <tr>s
+  let array = aTable.find('tr').map((i, elem) => {
+    return 'hi';
+    })
+  }
+
+  console.log(array);
+
+  // use regex? to get the one containing Pollok
+
+  // use data from that row to complete result object
+
+  // add result object to results array
+
+  // refactor code for enumeration over all tables
+
+  // save that array to disk as results.json
+
 
 function writeToDisk(data){
   fs.writeFile(path.join('cheerioObject.json'), data, (error) =>{
