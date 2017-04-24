@@ -1,4 +1,4 @@
-var math = require('mathjs');
+const math = require('mathjs');
 
 var Table = function(){
   this.teams = [];
@@ -54,21 +54,21 @@ Table.prototype = {
       return team.ppg;
     })
 
-    this.sdPPG = math.std(ppg, 'uncorrected').toFixed(3);
+    this.sdPPG = math.std(ppg, 'uncorrected');
   },
 
   setSdGDPG: function(){
     var gdpg = this.teams.map(function(team){
       return team.gdpg;
     });
-    this.sdGDPG = math.std(gdpg, 'uncorrected').toFixed(3);
+    // this.sdGDPG = math.std(gdpg, 'uncorrected').toFixed(3);
   },
 
   setSdPoss: function(){
     var poss = this.teams.map(function(team){
       return team.poss;
     });
-    this.sdPoss = math.std(poss, 'uncorrected').toFixed(3);
+    // this.sdPoss = math.std(poss, 'uncorrected').toFixed(3);
   },
 
   setSDevs: function(){
