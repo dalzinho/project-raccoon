@@ -1,6 +1,11 @@
 const cheerio = require('cheerio');
 const Fixture = require('../models/Fixture');
 const writeToDisk = require('./writeToDisk');
+const fs = require('fs');
+
+let fixtures = [];
+let options = {};
+let date, league, homeTeam, awayTeam, time;
 
 function parseFixtures(data){
   $ = cheerio.load(data, {
@@ -8,9 +13,7 @@ function parseFixtures(data){
     xmlMode: true
   })
 
-  let fixtures = [];
-  let options = {};
-  let date, league, homeTeam, awayTeam, time;
+  
 
   $('table').each((i, tbl) => {
     date = $(tbl).find('th').text();
@@ -31,10 +34,14 @@ function parseFixtures(data){
           time: time
         }
 
-        options = loadClubData(options, setHomeAndAway);
+        const clubInfo = loadClubData()
+        .then( (data) => JSON.parse(data))
+        .then( (json) => setHomeAndAway(json));
 
-        fixtures.push(new Fixture(options));
-      } //closes fxt if statement
+
+
+
+           } //closes fxt if statement
     }); //closes fxt enumeration
   })//closes tbl enumeration
 
@@ -45,15 +52,30 @@ function parseFixtures(data){
   writeToDisk(lokFixtures, 'lokFixtures.json');
 }//closes function
 
-function loadClubData(options){
-  fs.readFile(__dirname + '/../../json/clubInformation.json', (err, data) => {
-    if(err) throw err;
-    callback(options, data);
+const loadClubData = () => {
+  return new Promise( (resolve, reject) => {
+    fs.readFile(__dirname + '/../../../json/clubInformation.json', (err, data) => {
+      if(err) return reject(err);
+      resolve(data);
+    })
   })
 }
 
-function setHomeAndAway(options, clubInfo){
-  console.log(clubInfo);
+function setHomeAndAway(clubInfo){
+  const clubs = clubInfo;
+  const home = options.homeTeam;
+  const away = options.awayTeam;
+
+  clubs.forEach( (club) => {
+    //set hometeam
+    if(club.fullName === home){
+      options.homeTeam = club;
+    }
+      //set awayteam
+    if(club.fullName === away){
+      options.awayTeam = club;
+    }    
+  }) 
 }
 
 module.exports = parseFixtures;
