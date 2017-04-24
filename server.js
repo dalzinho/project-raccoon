@@ -19,6 +19,11 @@ app.get('/api/results', (req, res) => {
   res.sendFile(path.join(__dirname + '/scrapr/json/lokResults.json'));
 })
 
+app.get('/api/fixtures', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
+  res.sendFile(path.join(__dirname + '/scrapr/json/lokFixtures.json'));
+})
+
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`)
 });

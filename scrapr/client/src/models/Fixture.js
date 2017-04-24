@@ -3,6 +3,7 @@ var Fixture = function(options){
   this.homeTeam = options.homeTeam;
   this.awayTeam = options.awayTeam;
   this.time = options.time;
+  this.unixTime = 
 }
 
 module.exports = Fixture;
