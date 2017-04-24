@@ -1,5 +1,5 @@
 const assert = require('assert');
-const fixture = require('../Fixture');
+const Fixture = require('../Fixture');
 
 describe('fixture', () => {
   let fixture;
@@ -11,7 +11,9 @@ describe('fixture', () => {
     })
   });
 
-  it('has a date and time');
+  it('has a stringy date and time', () => {
+    assert.equal('Monday 24th April 2017', fixture.date);
+  });
 
   it('joins date and time into a string');
 
