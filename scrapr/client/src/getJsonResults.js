@@ -2,11 +2,13 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const Result = require('./models/Result');
+var Team = require('./models/Team');
+var Table = require('./models/Table');
 
 const cachedHtml = "";
 
-const getCachedHtml = (callback) => {
-  fs.readFile(__dirname + '/../../cacheData/cacheResults.html', (err, data) => {
+const getCachedHtml = (filename, callback) => {
+  fs.readFile(__dirname + `/../../cacheData/${filename}`, (err, data) => {
     if(err){
       throw err;
     }
@@ -14,7 +16,7 @@ const getCachedHtml = (callback) => {
   })
 }
 
-function createJsonFromHtml(data){
+function parseResults(data){
   $ = cheerio.load(data, {
     normalizeWhitespace: true,
     xmlMode: true
@@ -62,7 +64,45 @@ function createJsonFromHtml(data){
   writeToDisk(results, 'allResults.json');
 } // closes function
 
+function parseTable(data){
+  $ = cheerio.load(data, {
+    ignoreWhitespace: true,
+  });
 
+  var table = new Table();
+
+  $('tr').each(function(i, tr){
+    var children = $(this).children();
+    var options = {
+      rank: children.eq(0).text(),
+      name: children.eq(1).text(),
+      p: children.eq(2).text(),
+      ow: children.eq(3).text(),
+      od: children.eq(4).text(),
+      ol: children.eq(5).text(),
+      of: children.eq(6).text(),
+      oa: children.eq(7).text(),
+      hw: children.eq(8).text(),
+      hd: children.eq(9).text(),
+      hl: children.eq(10).text(),
+      hf: children.eq(11).text(),
+      ha: children.eq(12).text(),
+      aw: children.eq(13).text(),
+      ad: children.eq(14).text(),
+      al: children.eq(15).text(),
+      af: children.eq(16).text(),
+      aa: children.eq(17).text(),
+      gd: children.eq(18).text(),
+      pts: children.eq(19).text(),
+    };
+    var team = new Team(options);
+    table.addTeam(team);
+  }); 
+
+  table.teams = table.teams.splice(2, 12);
+  table.setStats(); 
+  writeToDisk(table.teams, 'leagueTable.json')
+}
 
 function writeToDisk(data, filename){
   fs.writeFile(path.join(`../../json/${filename}`), JSON.stringify(data), (error) =>{
@@ -72,7 +112,8 @@ function writeToDisk(data, filename){
 }
 
 function app(){
-  getCachedHtml(createJsonFromHtml);
+  getCachedHtml('cacheResults.html', parseResults);
+  getCachedHtml('cacheLeagueData.html', parseTable);
 }
 
 app();
