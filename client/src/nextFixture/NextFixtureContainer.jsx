@@ -5,8 +5,6 @@ class NextFixtureContainer extends React.Component{
     super(props);
     this.state = {
       nextFixture: {},
-      homeTeam: null,
-      awayTeam: null
     };
   }
 
@@ -17,20 +15,16 @@ class NextFixtureContainer extends React.Component{
       nextFixture: json[0]
     })
   })
-    .catch( (error) => {console.error(error)});
-  }
-
-  setHomeTeam(){
-    
+    .catch( (error) => {console.error(error)
+    .then( () => console.log('hello'));
+    });
   }
 
   componentDidMount(){
     this.getNextFixture();
   }
 
-  componentDidUpdate(){
-    this.setHomeTeam();
-  }
+ 
 
   render(){
     return(<div>
