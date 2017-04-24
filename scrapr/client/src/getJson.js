@@ -4,6 +4,7 @@ const path = require('path');
 const Result = require('./models/Result');
 const parseTable = require('./parsers/parseTable');
 const parseResults = require('./parsers/parseResults');
+const parseFixtures = require('./parsers/parseFixtures');
 
 const cachedHtml = "";
 
@@ -19,6 +20,7 @@ const getCachedHtml = (filename, callback) => {
 function app(){
   getCachedHtml('cacheResults.html', parseResults);
   getCachedHtml('cacheLeagueData.html', parseTable);
+  getCachedHtml('cacheForthcoming.html', parseFixtures);
 }
 
 app();

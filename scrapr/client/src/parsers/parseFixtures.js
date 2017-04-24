@@ -1,6 +1,45 @@
 const cheerio = require('cheerio');
-const fs = require('fs');
-const path - require('path');
+const Fixture = require('../models/Fixture');
+const writeToDisk = require('./writeToDisk');
 
-const cachedHtml = "";
+function parseFixtures(data){
+  $ = cheerio.load(data, {
+    normalizeWhitespace: true,
+    xmlMode: true
+  })
 
+  let fixtures = [];
+  let options = {};
+  let date, league, homeTeam, awayTeam, time;
+
+  $('table').each((i, tbl) => {
+    date = $(tbl).find('th').text();
+
+    $(tbl).children().each((i, fxt) => {
+      if(fxt.children.length > 3){
+
+        league = $(fxt).children().eq(0).text();
+        homeTeam = $(fxt).children().eq(1).text();
+        awayTeam = $(fxt).children().eq(3).text();
+        time = $(fxt).children().eq(4).text();
+
+        options = {
+          date: date,
+          league: league,
+          homeTeam: homeTeam,
+          awayTeam: awayTeam,
+          time: time
+        }
+
+        fixtures.push(new Fixture(options));
+      } //closes fxt if statement
+    }); //closes fxt enumeration
+  })//closes tbl enumeration
+  const lokFixtures = fixtures.filter((fixture) => {
+    if(fixture.homeTeam === 'Pollok' || fixture.awayTeam === 'Pollok'){return fixture};
+  })
+
+  writeToDisk(lokFixtures, 'lokFixtures.json');
+}//closes function
+
+module.exports = parseFixtures;
