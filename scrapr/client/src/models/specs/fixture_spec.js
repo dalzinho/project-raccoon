@@ -13,6 +13,7 @@ describe('fixture', () => {
 
   it('has a stringy date and time', () => {
     assert.equal('Monday 24th April 2017', fixture.date);
+    assert.equal('18:45', fixture.time);
   });
 
   it('joins date and time into a string');
