@@ -31,15 +31,29 @@ function parseFixtures(data){
           time: time
         }
 
+        options = loadClubData(options, setHomeAndAway);
+
         fixtures.push(new Fixture(options));
       } //closes fxt if statement
     }); //closes fxt enumeration
   })//closes tbl enumeration
+
   const lokFixtures = fixtures.filter((fixture) => {
     if(fixture.homeTeam === 'Pollok' || fixture.awayTeam === 'Pollok'){return fixture};
   })
 
   writeToDisk(lokFixtures, 'lokFixtures.json');
 }//closes function
+
+function loadClubData(options){
+  fs.readFile(__dirname + '/../../json/clubInformation.json', (err, data) => {
+    if(err) throw err;
+    callback(options, data);
+  })
+}
+
+function setHomeAndAway(options, clubInfo){
+  console.log(clubInfo);
+}
 
 module.exports = parseFixtures;
