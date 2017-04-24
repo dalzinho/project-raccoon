@@ -1,24 +1,9 @@
-var cheerio = require('cheerio');
-var fs = require('fs');
-var path = require('path');
-var Team = require('./models/Team');
-var Table = require('./models/Table');
+const cheerio = require('cheerio');
+var Team = require('../models/Team');
+var Table = require('../models/Table');
+const writeToDisk = require('./writeToDisk');
 
-var cachedHtml = "";
-
-
-var getCachedHtml = function(callback){
-
-  fs.readFile(__dirname + '/../../cacheData/cacheLeagueData.html', 'utf8', function(err, data){
-    if(err){
-      throw err;
-    }
-    callback(data);
-  });
-}
-
-var createJsonFromHtml = function(data){
-
+function parseTable(data){
   $ = cheerio.load(data, {
     ignoreWhitespace: true,
   });
@@ -55,19 +40,7 @@ var createJsonFromHtml = function(data){
 
   table.teams = table.teams.splice(2, 12);
   table.setStats(); 
-
-  fs.writeFile(path.join('../../json/leagueTable.json'), JSON.stringify(table.teams), function(error){
-    if(error){
-      console.log("Error: " + error);
-    } else {
-      console.log('Successful league table write!');
-    };
-  });
-
+  writeToDisk(table.teams, 'leagueTable.json')
 }
 
-var app = function(){
-  getCachedHtml(createJsonFromHtml);
-}
-
-app();
+module.exports = parseTable;
