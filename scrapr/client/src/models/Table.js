@@ -7,7 +7,9 @@ var Table = function(){
 Table.prototype = {
   addTeam: function(team){
     this.teams.push(team);
-
+    this.setAverages();
+    this.setSDevs();
+    this.setScores();
 
   },
 
