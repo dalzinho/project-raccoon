@@ -35,17 +35,16 @@ function parseFixtures(data){
           time: time
         }
 
+        // sets the home or away team to the relevant object
         clubInfo.forEach((club => {
-          // console.log(options);
-          // homeTeam === club.fullName ? options[homeTeam] = club : options[homeTeam] = home;
+   
           if (home === club.fullName){
-            console.log('home match!')
-            options.homeTeam = club;}
-          else if (away === club.fullName){
-            console.log('away match!');
+            options.homeTeam = club;
+          } else if (away === club.fullName){
             options.awayTeam = club;
           };
         }));
+
         console.log(options);
         fixtures.push(new Fixture(options));
 

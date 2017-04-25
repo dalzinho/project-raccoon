@@ -46,7 +46,7 @@ let clubs = [{
     groundPostcode: "KA12",
   },
   crestUrl: "https://static1.squarespace.com/static/552138ebe4b0abe69be47a2c/55b234a2e4b03d4ada444a70/55b234a2e4b03d4ada444aaa/1349466586068/1000w/10576389-20537545-thumbnail.jpg",
-  twitter: "@steadythebuffs",
+  twitter: "@atfc1909",
   website: "null"
 },
 {
@@ -58,7 +58,7 @@ let clubs = [{
     groundPostcode: "KA13",
   },
   crestUrl: "https://static1.squarespace.com/static/552138ebe4b0abe69be47a2c/55b234a2e4b03d4ada444a70/55b234a2e4b03d4ada444aaa/1349466586068/1000w/10576389-20537545-thumbnail.jpg",
-  twitter: "@steadythebuffs",
+  twitter: "@flowgently",
   website: "null"
 }
 ]
