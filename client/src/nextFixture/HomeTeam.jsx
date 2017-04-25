@@ -2,12 +2,18 @@ import React from 'react';
 
 class HomeTeam extends React.Component{
 
-  
   render(){
     return(
-      <h3>Home Team</h3>
+      <div>
+      <div>{this.props.fullName}</div>
+      <div><img src={this.props.crestUrl} /></div>
+      </div>
       )
   }
+}
+
+HomeTeam.defaultProps = {
+  fullName: "Loading..."
 }
 
 export default HomeTeam;

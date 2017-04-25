@@ -9,7 +9,10 @@ class App extends React.Component{
     <div>
     <div>
     	<HeaderContainer />
+    </div>
+    <div>
       <NextFixtureContainer />
+
     </div>
     </div>
     )

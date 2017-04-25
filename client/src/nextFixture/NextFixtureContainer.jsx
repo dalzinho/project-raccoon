@@ -1,4 +1,5 @@
 import React from 'react';
+import HomeTeam from './HomeTeam';
 
 class NextFixtureContainer extends React.Component{
   constructor(props){
@@ -9,26 +10,22 @@ class NextFixtureContainer extends React.Component{
   }
 
   getNextFixture(){
-    return fetch('http://www.example.com:3001/api/fixtures')
+    fetch('http://www.example.com:3001/api/fixtures')
     .then((response) => {return response.json()})
-    .then( (json) => {this.setState({
-      nextFixture: json[0]
-    })
-  })
-    .catch( (error) => {console.error(error)
-    .then( () => console.log('hello'));
-    });
+    // .then(data => console.log(data) )
+    .then( (json) => {this.setState({ nextFixture: json[0] }) })
+    // .catch( (error) => {console.error(error)});
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.getNextFixture();
   }
 
- 
+
 
   render(){
     return(<div>
-      {this.state.nextFixture.toString()}
+      <HomeTeam  {...this.state.nextFixture.homeTeam} />
 
       </div>)
   }
