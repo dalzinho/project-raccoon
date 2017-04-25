@@ -2,10 +2,9 @@ const cheerio = require('cheerio');
 const Fixture = require('../models/Fixture');
 const writeToDisk = require('./writeToDisk');
 const fs = require('fs');
+const clubInfo = require('../../../json/clubInformationRaw')
 
-let fixtures = [];
-let options = {};
-let date, league, homeTeam, awayTeam, time;
+
 
 function parseFixtures(data){
   $ = cheerio.load(data, {
@@ -13,7 +12,9 @@ function parseFixtures(data){
     xmlMode: true
   })
 
-  
+  let fixtures = [];
+  let options = {};
+  let date, league, homeTeam, awayTeam, time;
 
   $('table').each((i, tbl) => {
     date = $(tbl).find('th').text();
@@ -22,46 +23,53 @@ function parseFixtures(data){
       if(fxt.children.length > 3){
 
         league = $(fxt).children().eq(0).text();
-        homeTeam = $(fxt).children().eq(1).text();
-        awayTeam = $(fxt).children().eq(3).text();
+        home = $(fxt).children().eq(1).text();
+        away = $(fxt).children().eq(3).text();
         time = $(fxt).children().eq(4).text();
 
         options = {
           date: date,
           league: league,
-          homeTeam: homeTeam,
-          awayTeam: awayTeam,
+          homeTeam: home,
+          awayTeam: away, 
           time: time
         }
 
-        const clubInfo = loadClubData()
-        .then( (data) => JSON.parse(data))
-        .then( (json) => setHomeAndAway(json));
-
-
-
+        clubInfo.forEach((club => {
+          // console.log(options);
+          // homeTeam === club.fullName ? options[homeTeam] = club : options[homeTeam] = home;
+          if (home === club.fullName){
+            console.log('home match!')
+            options.homeTeam = club;}
+          else if (away === club.fullName){
+            console.log('away match!');
+            options.awayTeam = club;
+          };
+        }));
+        console.log(options);
+        fixtures.push(new Fixture(options));
 
            } //closes fxt if statement
     }); //closes fxt enumeration
   })//closes tbl enumeration
 
-  const lokFixtures = fixtures.filter((fixture) => {
-    if(fixture.homeTeam === 'Pollok' || fixture.awayTeam === 'Pollok'){return fixture};
-  })
+  // const lokFixtures = fixtures.filter((fixture) => {
+  //   // if(fixture.homeTeam === 'Pollok' || fixture.awayTeam === 'Pollok'){return fixture};
+  // })
 
-  writeToDisk(lokFixtures, 'lokFixtures.json');
+  writeToDisk(fixtures, 'lokFixtures.json');
 }//closes function
 
 const loadClubData = () => {
   return new Promise( (resolve, reject) => {
     fs.readFile(__dirname + '/../../../json/clubInformation.json', (err, data) => {
       if(err) return reject(err);
-      resolve(data);
+      else resolve(data);
     })
   })
 }
 
-function setHomeAndAway(clubInfo){
+function setHomeAndAway(options, clubInfo){
   const clubs = clubInfo;
   const home = options.homeTeam;
   const away = options.awayTeam;
@@ -72,10 +80,10 @@ function setHomeAndAway(clubInfo){
       options.homeTeam = club;
     }
       //set awayteam
-    if(club.fullName === away){
-      options.awayTeam = club;
-    }    
-  }) 
+      if(club.fullName === away){
+        options.awayTeam = club;
+      }    
+    }) 
 }
 
 module.exports = parseFixtures;
