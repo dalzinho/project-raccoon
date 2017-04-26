@@ -3,11 +3,13 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 
+
 app.set('port', (process.env.PORT || 3001));
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-}
+// if(process.env.NODE_ENV === 'production'){
+  // app.use(express.static('client/build'));
+// }
+
 
 app.get('/api/table', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
