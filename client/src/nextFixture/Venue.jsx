@@ -4,8 +4,7 @@ class Venue  extends React.Component{
   render(){
     return (
       <div>
-      <div id='groundName'>{this.props.homeGround.groundName}</div>
-      <div id='groundTown'>{this.props.homeGround.groundTown}</div>
+      <div id='groundName'>{this.props.homeGround.groundName}, {this.props.homeGround.groundTown}</div>
       </div>
       )
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import Team from './Team';
 import Venue from './Venue';
 import DateAndTime from './DateAndTime';
+import './NextFixture.css'
 
 class NextFixtureContainer extends React.Component{
   constructor(props){
@@ -24,15 +25,23 @@ class NextFixtureContainer extends React.Component{
   }
 
   render(){
-    return(<div>
-      <Team  {...this.state.nextFixture.homeTeam} />
-      <div>
-      vs
+    return(
+      <div id="next-fixture-container">
+      <h3>Next Fixture</h3>
+      <div id="teams-display">
+      <div className='team'>
+      <Team {...this.state.nextFixture.homeTeam} />
       </div>
-      <Team {...this.state.nextFixture.awayTeam} />
+      <div>vs</div>
+      <div className='team'>
+      <Team className='team' {...this.state.nextFixture.awayTeam} />
+      </div>
+      </div>
       <Venue {...this.state.nextFixture.homeTeam} />
-      <DateAndTime unixTime={this.state.nextFixture.unixTime} />
-      </div>)
+      <DateAndTime {...this.state.nextFixture} />
+      </div>
+
+      )
   }
 }
 

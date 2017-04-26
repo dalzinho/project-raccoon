@@ -1,10 +1,11 @@
 import React from 'react';
 // import ReactTable from 'react-table';
 import Table from '../components/Table';
+import '../table.css'
 
 class TableContainer extends React.Component{
   render(){
-    return <div><Table /></div>
+    return <div id='table'><Table /></div>
   }
 }
 

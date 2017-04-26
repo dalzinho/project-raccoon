@@ -9,24 +9,20 @@ class DateAndTime extends React.Component{
     }
   }
 
-  componentDidMount(){
-    console.log(this.props.unixTime);
-    const dateObject = new Date(this.props.unixTime);
-    this.setState({
-      date: dateObject.toLocaleDateString(),
-      time: dateObject.toLocaleTimeString()
-    })
-  }
+  // componentWillMount(){
+  //   console.log(this.props.unixTime);
+  //   const dateObject = new Date(this.props.unixTime * 1000);
+  //   this.setState({
+  //     date: dateObject.toLocaleDateString(),
+  //     time: dateObject.toLocaleTimeString()
+  //   })
+  // }
 
   render(){
     return(
       <div>
         <div id='gameDate'>
-        {this.state.date}
-        </div>
-
-        <div id='gameTime'>
-        {this.state.time}
+        {this.props.date}, {this.props.time}
         </div>
       </div>
       )
