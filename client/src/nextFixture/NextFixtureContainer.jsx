@@ -1,5 +1,7 @@
 import React from 'react';
 import Team from './Team';
+import Venue from './Venue';
+import DateAndTime from './DateAndTime';
 
 class NextFixtureContainer extends React.Component{
   constructor(props){
@@ -21,12 +23,15 @@ class NextFixtureContainer extends React.Component{
     this.getNextFixture();
   }
 
-
-
   render(){
     return(<div>
       <Team  {...this.state.nextFixture.homeTeam} />
+      <div>
+      vs
+      </div>
       <Team {...this.state.nextFixture.awayTeam} />
+      <Venue {...this.state.nextFixture.homeTeam} />
+      <DateAndTime unixTime={this.state.nextFixture.unixTime} />
       </div>)
   }
 }
