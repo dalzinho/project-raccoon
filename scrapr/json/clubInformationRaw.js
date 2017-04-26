@@ -63,12 +63,9 @@ let clubs = [{
 }
 ]
 
+fs.writeFile(path.join('clubInformation.json'), JSON.stringify(clubs), (error) =>{
+  if(error){ console.log('Error:', error)}
+    else {console.log('clubInfo written to json folder')}
+  })
 
-
-
-// fs.writeFile(path.join('clubInformation.json'), JSON.stringify(clubs), (error) =>{
-//   if(error){ console.log('Error:', error)}
-//     else {console.log('clubInfo written to json folder')}
-//   })
-
-module.exports = clubs;
+// module.exports = clubs;

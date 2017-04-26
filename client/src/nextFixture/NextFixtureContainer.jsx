@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeTeam from './HomeTeam';
+import Team from './Team';
 
 class NextFixtureContainer extends React.Component{
   constructor(props){
@@ -25,8 +25,8 @@ class NextFixtureContainer extends React.Component{
 
   render(){
     return(<div>
-      <HomeTeam  {...this.state.nextFixture.homeTeam} />
-
+      <Team  {...this.state.nextFixture.homeTeam} />
+      <Team {...this.state.nextFixture.awayTeam} />
       </div>)
   }
 }
