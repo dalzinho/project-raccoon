@@ -5,9 +5,10 @@
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-table": "^5.5.3"
+    "react-table": "^5.6.0"
   },
   "devDependencies": {
+    "mocha": "^3.2.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
@@ -16,5 +17,4 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
-
 }

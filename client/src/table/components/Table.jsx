@@ -26,21 +26,80 @@ class Table extends React.Component {
 
   render(){
     const columns = [
-    { header: 'Rank', accessor: 'rank'},
-    { header: 'Team', accessor: 'name'},
-    { header: 'P', accessor: 'p'},
-    { header: 'W', accessor: 'ow'},
-    { header: 'D', accessor: 'od'},
-    { header: 'L', accessor: 'ol'},
-    { header: 'F', accessor: 'of'},
-    { header: 'A', accessor: 'oa'},
-    { header: 'GD', accessor: 'gd'},
-    { header: 'Std', accessor: 'score'},
-    { header: 'Pts', accessor: 'pts'}
+    { 
+      header: '',
+      accessor: 'rank',
+      maxWidth: 30
+    },
+    { 
+      header: 'Team',
+      accessor: 'name',
+      sortable: false,
+      minWidth: 200,
+      maxWidth: 200
+    },
+    { 
+      header: 'P',
+      accessor: 'p',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'W',
+      accessor: 'ow',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'D',
+      accessor: 'od',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'L',
+      accessor: 'ol',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'F',
+      accessor: 'of',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'A',
+      accessor: 'oa',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'GD',
+      accessor: 'gd',
+      sortable: false,
+      maxWidth: 40
+    },
+    { 
+      header: 'Std',
+      accessor: 'score',
+      sortable: true,
+      maxWidth: 40
+    },
+    { 
+      header: 'Pts',
+      accessor: 'pts',
+      maxWidth: 40
+    }
     ]
     return (
       <div>
-      <ReactTable 
+      <ReactTable
+      minWidth={300}
+      maxWidth={600}
+      showPagination={false}
+      resizable={false}
+      defaultPageSize={12}
       data={this.state.data}
       columns={columns}
       />

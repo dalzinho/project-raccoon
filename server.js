@@ -11,7 +11,22 @@ if(process.env.NODE_ENV === 'production'){
 
 app.get('/api/table', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
-  res.sendFile(path.join(__dirname + '/site_scraper/leagueTable.json'));
+  res.sendFile(path.join(__dirname + '/scrapr/json/leagueTable.json'));
+})
+
+app.get('/api/results', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
+  res.sendFile(path.join(__dirname + '/scrapr/json/lokResults.json'));
+})
+
+app.get('/api/fixtures', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
+  res.sendFile(path.join(__dirname + '/scrapr/json/lokFixtures.json'));
+})
+
+app.get('/api/clubs', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://www.example.com:3000');
+  res.sendFile(path.join(__dirname + '/scrapr/json/clubInformation.json'));
 })
 
 app.listen(app.get('port'), () => {
