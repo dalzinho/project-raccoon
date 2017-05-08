@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Forum|Mukta+Vaani');
+
 #content-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Mukta Vaani', sans-serif;
 }

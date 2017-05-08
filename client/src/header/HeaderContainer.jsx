@@ -10,17 +10,17 @@ class HeaderContainer extends React.Component{
 		return (
       <div id="header-container">
       <div>
-			<HeaderCrest />
+      <HeaderCrest />
       </div>
       <div id="header-text">
-			<HeaderTitle />
+      <HeaderTitle />
       <Subtitle />
-			</div>
+      </div>
       <div>
       <HeaderSponsor />
       </div>
       </div>
-			)
+      )
 	}
 }
 

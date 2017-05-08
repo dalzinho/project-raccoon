@@ -2,6 +2,7 @@ import React from 'react';
 import TableContainer from './table/containers/TableContainer';
 import HeaderContainer from './header/HeaderContainer';
 import NextFixtureContainer from './nextFixture/NextFixtureContainer';
+import TweetContainer from './tweets/TweetContainer'
 import './App.css'
 
 class App extends React.Component{
@@ -9,7 +10,7 @@ class App extends React.Component{
   return(
     <div>
     <div>
-    	<HeaderContainer />
+    	<HeaderContainer id='HeaderContainer'/>
     </div>
     <div id='content-container'>
     <div>
@@ -17,6 +18,9 @@ class App extends React.Component{
     </div>
     <div>
       <TableContainer />
+    </div>
+    <div>
+    <TweetContainer />
     </div>
     </div>
     </div>
