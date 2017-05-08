@@ -39,8 +39,8 @@ def scrape_data(table):
 			}),
 
 
-
-scrape_data(leagueTable)
+for table in tables:
+	scrape_data(table)
 
 with open('league.json', 'w') as outfile:
 	json.dump(matches, outfile)
